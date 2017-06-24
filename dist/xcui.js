@@ -1,5 +1,5 @@
 /*!
- * xcui v2.0.0-rc-8
+ * xcui v2.0.0-rc-9
  * (c) 2016-2017, wmfe
  * https://github.com/wmfe/xcui
  * Released under the MIT License.
@@ -12380,6 +12380,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        },
 	        handleEnter: function handleEnter() {
+	            if (this.currentIndex === -1) {
+	                return;
+	            }
 	            var currentItem = this.list[this.currentIndex];
 	            this.setItem(currentItem);
 	            this.triggerOnEnter = true;
