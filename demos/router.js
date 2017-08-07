@@ -39,6 +39,7 @@ const Form = () => import('./components/form');
 const Table = () => import('./components/table');
 const Steps = () => import('./components/steps');
 const Collapse = () => import('./components/collapse');
+const Dropdown = () => import('./components/dropdown');
 
 const router = new VueRouter({
     routes: [{
@@ -144,6 +145,9 @@ const router = new VueRouter({
             }, {
                 path: '/component/collapse',
                 component: Collapse
+            }, {
+                path: '/component/dropdown',
+                component: Dropdown
             }
         ]
     }]

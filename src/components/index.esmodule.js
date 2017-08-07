@@ -42,6 +42,9 @@ import TableColumn from './table-column';
 import Steps, { StepsItem } from './steps';
 import Collapse from './collapse';
 import CollapseItem from './collapse-item';
+import DropDown from './dropdown';
+import DropDownItem from './dropdown-item';
+import DropDownMenu from './dropdown-menu';
 
 const install = (Vue) => {
     if (install.installed) {
@@ -84,6 +87,9 @@ const install = (Vue) => {
     Vue.component(StepsItem.name, StepsItem);
     Vue.component(Collapse.name, Collapse);
     Vue.component(CollapseItem.name, CollapseItem);
+    Vue.component(DropDown.name, DropDown);
+    Vue.component(DropDownItem.name, DropDownItem);
+    Vue.component(DropDownMenu.name, DropDownMenu);
     Vue.use(Message);
     Vue.use(Notice);
     Vue.use(Dialog);
@@ -132,7 +138,8 @@ const xcui = {
     TableColumn,
     install,
     Collapse,
-    CollapseItem
+    CollapseItem,
+    DropDown
 };
 
 export default xcui;
