@@ -45,6 +45,7 @@ import CollapseItem from './collapse-item';
 import DropDown from './dropdown';
 import DropDownItem from './dropdown-item';
 import DropDownMenu from './dropdown-menu';
+import Upload from './Upload';
 
 const install = (Vue) => {
     if (install.installed) {
@@ -90,6 +91,7 @@ const install = (Vue) => {
     Vue.component(DropDown.name, DropDown);
     Vue.component(DropDownItem.name, DropDownItem);
     Vue.component(DropDownMenu.name, DropDownMenu);
+    Vue.component(Upload.name, Upload);
     Vue.use(Message);
     Vue.use(Notice);
     Vue.use(Dialog);
@@ -139,7 +141,11 @@ const xcui = {
     install,
     Collapse,
     CollapseItem,
+<<<<<<< HEAD
     DropDown
+=======
+    Upload
+>>>>>>> upstream/2.0
 };
 
 export default xcui;
