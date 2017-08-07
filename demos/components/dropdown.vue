@@ -50,8 +50,7 @@
             <x-dropdown-item>夫妻肺片</x-dropdown-item>
         </x-dropdown-menu>
     </x-dropdown>
-    <x-dropdown type="info" mode="split-button">
-        下拉菜单
+    <x-dropdown>
         <x-dropdown-menu slot="dropdown">
             <x-dropdown-item>北京烤鸭</x-dropdown-item>
             <x-dropdown-item>夫妻肺片</x-dropdown-item>
