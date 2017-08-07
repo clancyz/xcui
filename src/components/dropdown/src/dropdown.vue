@@ -3,6 +3,7 @@
     import Clickoutside from 'xcui/src/utils/clickoutside';
     import XButton from 'xcui/src/components/button';
     import XButtonGroup from 'xcui/src/components/button-group';
+    import { on, off } from 'xcui/src/utils/dom';
 
     export default {
         name: 'x-dropdown',
@@ -36,19 +37,60 @@
         },
         watch: {
             visible(val) {
-                // todo
+                this.broadcast('x-dropdown-menu', 'visible', val);
             }
         },
         methods: {
             handleClick() {
-
+                this.visible = !this.visible;
             },
             hideDropdown() {
-                this.visible = false;
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    this.visible = false;
+                }, 100);
+            },
+            showDropdown() {
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    this.visible = true;
+                }, 200);
+            },
+            handleDropdownItemClick(itemKey) {
+                if (this.hideOnClick) {
+                    this.visible = false;
+                }
+                this.broadcast('x-dropdown-menu', 'item-click', itemKey);
+            },
+            bindTrigger() {
+                let {mode, type, size, handleClick, showDropdown, hideDropdown} = this;
+                let triggerElm;
+                if (this.$slots.custom) {
+                    triggerElm = this.$slots.custom[0].elm;
+                }
+                else if (['button', 'link', 'split-button'].indexOf(mode) >= 0) {
+                    triggerElm =  this.$refs.trigger.$el || this.$refs.trigger;
+                }
+                if (!triggerElm) {
+                    return;
+                }
+
+                let dropdownElm = this.$slots.dropdown[0].elm;
+                on(dropdownElm, 'mouseenter', showDropdown);
+                on(dropdownElm, 'mouseleave', hideDropdown);
+
+                if (this.trigger === 'hover') {
+                    on(triggerElm, 'mouseenter', showDropdown);
+                    on(triggerElm, 'mouseleave', hideDropdown);
+                }
+                else if (this.trigger === 'click') {
+                    on(triggerElm, 'click', handleClick);
+                }
             }
         },
         mounted() {
-
+            this.$on('x-dropdown-item-click', this.handleDropdownItemClick);
+            this.bindTrigger();
         },
         render(h) {
             // mode: button / link / split-button
@@ -63,14 +105,15 @@
                 switch(mode) {
                     case 'link':
                         triggerElm = (
-                            <span class="x-dropdown-link" ref="trigger">
+                            <span class={`x-dropdown-link x-dropdown-link-${type}`}  ref="trigger">
                                 { this.$slots.default }
+                                <i class="x-icon x-icon-arrow-down-b"></i>
                             </span>
                         );
                         break;
                     case 'button':
                         triggerElm = (
-                           <x-button type={type} size={size}>
+                           <x-button type={type} size={size} ref="trigger">
                                {this.$slots.default}
                            </x-button>
                         )
@@ -81,7 +124,7 @@
                                 <x-button type={type} size={size} nativeOnClick={handleClick}>
                                     {this.$slots.default}
                                 </x-button>
-                                <x-button ref="trigger" type={type} size={size} icon="arrow-down-b">
+                                <x-button ref="trigger" type={type} size={size} icon="arrow-down-b" class="x-dropdown-button-arrow">
                                 </x-button>
                             </x-button-group>
                         );

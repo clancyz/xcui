@@ -18,11 +18,11 @@ export default {
     props: {
         disabled: Boolean,
         divided: Boolean,
-
+        itemKey: String
     },
     methods: {
         handleClick() {
-            this.dispatch('x-drop-down', 'x-dropdown-item-click', this);
+            this.dispatch('x-dropdown', 'x-dropdown-item-click', this.itemKey);
         }
     }
 }

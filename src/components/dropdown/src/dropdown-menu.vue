@@ -13,17 +13,30 @@ export default {
     name: 'x-dropdown-menu',
     componentName: 'x-dropdown-menu',
     mixins: [Popper],
+    props: {
+        align: {
+            type: String,
+            default: 'bottom-end',
+            validator(value) {
+                return ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'].indexOf(value) >= 0;
+            }
+        }
+    },
     created() {
         this.$on('updatePopper', () => {
             this.showPopper && this.updatePopper();
-        })
+        });
         this.$on('visible', val => {
             this.showPopper = val;
+        });
+        this.$on('item-click', val => {
+            this.$emit('click', val);
         })
     },
     mounted() {
         this.$parent.popperElm = this.popperElm = this.$el;
-        this.referenceElem = this.$parent.$el;
+        this.referenceElm = this.$parent.$el;
+        this.currentPlacement = this.align;
     }
 }
 </script>
