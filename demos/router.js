@@ -39,6 +39,7 @@ const Form = () => import('./components/form');
 const Table = () => import('./components/table');
 const Steps = () => import('./components/steps');
 const Collapse = () => import('./components/collapse');
+const Upload = () => import('./components/upload');
 const Dropdown = () => import('./components/dropdown');
 const Alert = () => import('./components/alert');
 
