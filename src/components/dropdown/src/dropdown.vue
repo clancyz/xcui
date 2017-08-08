@@ -56,7 +56,12 @@
         methods: {
             handleClick() {
                 if (this.disabled) return;
-                this.visible = !this.visible;
+                if (this.mode === 'split-button') {
+                    this.$emit('click');
+                }
+                else {
+                    this.visible = !this.visible;
+                }
             },
             hideDropdown() {
                 if (this.disabled) return;

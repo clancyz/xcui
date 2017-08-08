@@ -32,7 +32,7 @@
 
 ## 其他形式的触发元素
 
-::: demo 通过设置`mode`可改变默认的触发元素，默认为`link`, 可选值为`button`和`split-button`。也可以通过`custom`这个`具名slot`来自定义触发元素，如果使用了这个slot, `mode`选项将失效。
+::: demo 通过设置`mode`可改变默认的触发元素，默认为`link`, 可选值为`button`和`split-button`。也可以通过`custom`这个`具名slot`来自定义触发元素，如果使用了这个slot, `mode`选项将失效。当选择`split-button`时可在`x-dropdown`上绑定click事件，对应为按钮的点击。
 
 ```html
 
@@ -44,7 +44,7 @@
             <x-dropdown-item>夫妻肺片</x-dropdown-item>
         </x-dropdown-menu>
     </x-dropdown>
-    <x-dropdown type="info" mode="split-button">
+    <x-dropdown type="info" mode="split-button" @click="handleClick">
         下拉菜单
         <x-dropdown-menu slot="dropdown">
             <x-dropdown-item>北京烤鸭</x-dropdown-item>
@@ -198,7 +198,7 @@
 <tpl>
     <x-dropdown type="primary" mode="button">
         下拉菜单
-        <x-dropdown-menu slot="dropdown" @click="handleClick">
+        <x-dropdown-menu slot="dropdown" @click="handleItemClick">
             <x-dropdown-item item-key="1">北京烤鸭</x-dropdown-item>
             <x-dropdown-item item-key="2">夫妻肺片</x-dropdown-item>
         </x-dropdown-menu>
@@ -207,7 +207,7 @@
 
 <script>
     export default {
-        handleClick(itemKey) {
+        handleItemClick(itemKey) {
             this.$Message.info(`点击了第${itemKey}项`);
         }
     }
@@ -251,6 +251,13 @@
 |align|String|bottom-end|触发元素与菜单的对齐方式|否|`top`, `top-start`, `top-end`, `bottom`, `bottom-start`, `bottom-end`|
 |hideOnClick|Boolean|true|点击菜单项时是否隐藏菜单|否|true/false|
 
+## Dropdown Events
+
+|事件名|说明|返回值|设置属性|
+|---|---|---|---|
+|click|当`mode`为`split-button`时，点击按钮时触发|无|`@click`|
+
+
 ## DropdownMenu Events
 
 |事件名|说明|返回值|设置属性|
@@ -276,7 +283,10 @@ export default {
         }
     },
     methods: {
-        handleClick(itemKey) {
+        handleClick() {
+            this.$Message.info('点击了按钮');
+        },
+        handleItemClick(itemKey) {
             this.$Message.info(`点击了第${itemKey}项`);
         }
     }
