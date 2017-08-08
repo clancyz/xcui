@@ -40,7 +40,6 @@ const Table = () => import('./components/table');
 const Steps = () => import('./components/steps');
 const Collapse = () => import('./components/collapse');
 const Dropdown = () => import('./components/dropdown');
-const Upload = () => import('./components/upload');
 const Alert = () => import('./components/alert');
 
 const router = new VueRouter({
