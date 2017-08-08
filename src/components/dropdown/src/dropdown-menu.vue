@@ -1,5 +1,5 @@
 <template>
-    <transition name="x-slide-up">
+    <transition :name="transitionName">
         <ul class="x-dropdown-menu" v-show="showPopper">
             <slot></slot>
         </ul>
@@ -13,12 +13,16 @@ export default {
     name: 'x-dropdown-menu',
     componentName: 'x-dropdown-menu',
     mixins: [Popper],
-    props: {
-        align: {
-            type: String,
-            default: 'bottom-end',
-            validator(value) {
-                return ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'].indexOf(value) >= 0;
+    computed: {
+        transitionName() {
+            return this.$parent.align.indexOf('bottom') >= 0 ? 'x-slide-up' : 'x-slide-down';
+        }
+    },
+    watch: {
+        '$parent.align': {
+            immediate: true,
+            handler(val) {
+                this.currentPlacement = `bottom-${val}`;
             }
         }
     },
@@ -36,7 +40,7 @@ export default {
     mounted() {
         this.$parent.popperElm = this.popperElm = this.$el;
         this.referenceElm = this.$parent.$el;
-        this.currentPlacement = this.align;
+        this.currentPlacement = this.$parent.align;
     }
 }
 </script>

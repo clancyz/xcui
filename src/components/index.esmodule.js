@@ -141,11 +141,8 @@ const xcui = {
     install,
     Collapse,
     CollapseItem,
-<<<<<<< HEAD
-    DropDown
-=======
+    DropDown,
     Upload
->>>>>>> upstream/2.0
 };
 
 export default xcui;

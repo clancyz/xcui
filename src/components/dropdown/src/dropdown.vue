@@ -21,6 +21,7 @@
                 default: 'hover'
             },
             size: String,
+            disabled: Boolean,
             mode: {
                 type: String,
                 default: 'link'
@@ -28,11 +29,23 @@
             hideOnClick: {
                 type: Boolean,
                 default: true
+            },
+            align: {
+                type: String,
+                default: 'bottom-end',
+                validator(value) {
+                    return ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'].indexOf(value) >= 0;
+                }
             }
         },
         data() {
             return {
-                visible: false
+                visible: false,
+            }
+        },
+        computed: {
+            iconName() {
+                return this.align.indexOf('bottom') >= 0 ? 'arrow-down-b' : 'arrow-up-b';
             }
         },
         watch: {
@@ -42,15 +55,18 @@
         },
         methods: {
             handleClick() {
+                if (this.disabled) return;
                 this.visible = !this.visible;
             },
             hideDropdown() {
+                if (this.disabled) return;
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = false;
                 }, 100);
             },
             showDropdown() {
+                if (this.disabled) return;
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = true;
@@ -96,7 +112,7 @@
             // mode: button / link / split-button
             // slot: dropdown / (default)text / custom
             // priority: custom => mode set & default text
-            let { mode, type, size, handleClick, hideDropdown } = this;
+            let { mode, type, size, handleClick, hideDropdown, iconName, disabled } = this;
             let triggerElm;
             if (this.$slots.custom) {
                 triggerElm = this.$slots.custom;
@@ -105,26 +121,27 @@
                 switch(mode) {
                     case 'link':
                         triggerElm = (
-                            <span class={`x-dropdown-link x-dropdown-link-${type}`}  ref="trigger">
+                            <span class={`x-dropdown-link x-dropdown-link-${type} ` + (disabled ? `x-dropdown-link-disabled` : '')}  ref="trigger">
                                 { this.$slots.default }
-                                <i class="x-icon x-icon-arrow-down-b"></i>
+                                <i class={`x-icon x-icon-${iconName}`}></i>
                             </span>
                         );
                         break;
                     case 'button':
                         triggerElm = (
-                           <x-button type={type} size={size} ref="trigger">
+                           <x-button type={type} size={size} disabled={disabled} ref="trigger">
                                {this.$slots.default}
+                                <i class={`x-icon x-icon-${iconName}`}></i>
                            </x-button>
                         )
                         break;
                     case 'split-button':
                         triggerElm = (
                             <x-button-group>
-                                <x-button type={type} size={size} nativeOnClick={handleClick}>
+                                <x-button type={type} size={size} disabled={disabled} nativeOnClick={handleClick}>
                                     {this.$slots.default}
                                 </x-button>
-                                <x-button ref="trigger" type={type} size={size} icon="arrow-down-b" class="x-dropdown-button-arrow">
+                                <x-button ref="trigger" type={type} size={size} icon={iconName} disabled={disabled}  class="x-dropdown-button-arrow">
                                 </x-button>
                             </x-button-group>
                         );

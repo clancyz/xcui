@@ -21,6 +21,10 @@
         &-error {
             color: @brand-danger;
         }
+        &-disabled {
+            cursor: @cursor-disabled;
+            color: @disabled-color;
+        }
     }
     &-menu {
         margin: 5px 0;
@@ -40,6 +44,7 @@
         list-style: none;
         line-height: 30px;
         padding: 0 12px;
+        color: @drop-down-text-color;
         &:hover {
             background-color: @drop-down-hover-bg;
             .transition(~"background .3s ease");
