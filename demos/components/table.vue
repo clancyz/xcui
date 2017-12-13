@@ -459,7 +459,7 @@
                 title="姓名"
                 prop="name"
             >
-                <template scope="props">
+                <template slot-scope="props">
                     <a href="javascript:void(0)">
                     {{props.dataItem.name}}
                     </a>
@@ -469,7 +469,7 @@
                 title="地址"
                 prop="address"
             >
-            <template scope="props" slot="column-header-slot">
+            <template slot-scope="props" slot="column-header-slot">
                 {{props.columnItem.title}}
                 <x-tooltip content="Sample Text" title="Title">
                         <x-icon name="help-circled" size="16"></x-icon>
@@ -481,7 +481,7 @@
                 title="职业"
                 prop="job"
             >
-                <template scope="props">
+                <template slot-scope="props">
                     <x-tag>{{props.dataItem.job}}</x-tag>
                 </template>
             </x-table-column>
@@ -750,7 +750,7 @@
 
 ## 列固定
 
-::: demo 当表格横向数据很多时，可以选择固定列。只支持第一列左固定，最后一列右固定。
+::: demo 当表格横向数据很多时，可以选择固定列。只支持第一列左固定，最后一列右固定。**注意**：当表格宽度小于所有列的宽度之和时才会展示效果
 ```html
 <tpl>
     <div>

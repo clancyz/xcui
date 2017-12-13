@@ -48,6 +48,12 @@
                         <router-link to="/component/select">Select 选择器</router-link>
                     </li>
                     <li class="sidebar-item">
+                        <router-link to="/component/single-tree-select">SingleTreeSelect 单选选择器</router-link>
+                    </li>
+                    <li class="sidebar-item">
+                        <router-link to="/component/multi-tree-select">MultiTreeSelect 多选选择器</router-link>
+                    </li>
+                    <li class="sidebar-item">
                         <router-link to="/component/switch">Switch 开关</router-link>
                     </li>
                     <li class="sidebar-item">
@@ -105,6 +111,12 @@
                     <li class="sidebar-title">Navigation 导航</li>
                     <li class="sidebar-item">
                         <router-link to="/component/pagination">Pagination 分页</router-link>
+                    </li>
+                    <li class="sidebar-item">
+                        <router-link to="/component/tabs">Tabs 标签页</router-link>
+                    </li>
+                    <li class="sidebar-item">
+                        <router-link to="/component/breadcrumb">Breadcrumb 面包屑</router-link>
                     </li>
                     <li class="sidebar-item">
                         <router-link to="/component/dropdown">Dropdown 下拉菜单</router-link>
